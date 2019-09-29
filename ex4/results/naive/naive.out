@@ -1,0 +1,249 @@
+make -C common clean
+make[1]: Entering directory `/home/parallel/parlab26/ex4/common'
+/bin/rm -f  *.o *.s *~
+make[1]: Leaving directory `/home/parallel/parlab26/ex4/common'
+make -C cuda clean
+make[1]: Entering directory `/home/parallel/parlab26/ex4/cuda'
+/bin/rm -f dmm_main dmm.o dmm_gpu.o dmm_main.o gpu_util.o mat_util.o
+make[1]: Leaving directory `/home/parallel/parlab26/ex4/cuda'
+make -C common 
+make[1]: Entering directory `/home/parallel/parlab26/ex4/common'
+cc  -DNDEBUG -c -Wall -std=gnu99 -O3 -c -o alloc.o alloc.c
+cc  -DNDEBUG -c -Wall -std=gnu99 -O3 -c -o error.o error.c
+cc  -DNDEBUG -c -Wall -std=gnu99 -O3 -c -o timer.o timer.c
+make[1]: Leaving directory `/home/parallel/parlab26/ex4/common'
+make -C cuda 
+make[1]: Entering directory `/home/parallel/parlab26/ex4/cuda'
+cc -D__FLOAT_VALUES -DEPS=1e-2 -I../common -DNDEBUG -c -Wall -std=gnu99 -O3 -o dmm.o dmm.c
+/usr/local/cuda/bin/nvcc -D__FLOAT_VALUES -DEPS=1e-2 -I../common -DNDEBUG -I/usr/local/cuda/include -c -ccbin gcc -arch sm_20  -O3 --ptxas-options=-v -o dmm_gpu.o dmm_gpu.cu
+/usr/local/cuda/bin/nvcc -D__FLOAT_VALUES -DEPS=1e-2 -I../common -DNDEBUG -I/usr/local/cuda/include -c -ccbin gcc -arch sm_20  -O3 --ptxas-options=-v -o dmm_main.o dmm_main.cu
+/usr/local/cuda/bin/nvcc -D__FLOAT_VALUES -DEPS=1e-2 -I../common -DNDEBUG -I/usr/local/cuda/include -c -ccbin gcc -arch sm_20  -O3 --ptxas-options=-v -o gpu_util.o gpu_util.cu
+cc -D__FLOAT_VALUES -DEPS=1e-2 -I../common -DNDEBUG -c -Wall -std=gnu99 -O3 -o mat_util.o mat_util.c
+/usr/local/cuda/bin/nvcc -o dmm_main -L../common  ../common/alloc.o  ../common/error.o  ../common/timer.o dmm.o dmm_gpu.o dmm_main.o gpu_util.o mat_util.o -L/usr/local/cuda/lib64 -lcudart -lcublas -lm
+make[1]: Leaving directory `/home/parallel/parlab26/ex4/cuda'
+Benchmark started on Thu Mar 14 04:13:20 EET 2019 in termi3
+M: 1024 N: 1024 K: 1024 Block size: 16x1 Grid size : 64x1024 Shared memory size: 0 bytes Elapsed time: 29.275064 s Performance:  7.335539 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 16x2 Grid size : 64x512 Shared memory size: 0 bytes Elapsed time: 14.629629 s Performance:  14.679003 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 16x4 Grid size : 64x256 Shared memory size: 0 bytes Elapsed time: 7.368024 s Performance:  29.145991 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 16x8 Grid size : 64x128 Shared memory size: 0 bytes Elapsed time: 3.834837 s Performance:  55.999346 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 16x16 Grid size : 64x64 Shared memory size: 0 bytes Elapsed time: 3.842089 s Performance:  55.893647 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 16x32 Grid size : 64x32 Shared memory size: 0 bytes Elapsed time: 4.479720 s Performance:  47.937899 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 16x64 Grid size : 64x16 Shared memory size: 0 bytes Elapsed time: 4.077876 s Performance:  52.661818 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 32x1 Grid size : 32x1024 Shared memory size: 0 bytes Elapsed time: 14.609545 s Performance:  14.699182 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 32x2 Grid size : 32x512 Shared memory size: 0 bytes Elapsed time: 7.350206 s Performance:  29.216646 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 32x4 Grid size : 32x256 Shared memory size: 0 bytes Elapsed time: 3.732796 s Performance:  57.530164 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 32x8 Grid size : 32x128 Shared memory size: 0 bytes Elapsed time: 3.452103 s Performance:  62.207983 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 32x16 Grid size : 32x64 Shared memory size: 0 bytes Elapsed time: 3.492759 s Performance:  61.483877 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 32x32 Grid size : 32x32 Shared memory size: 0 bytes Elapsed time: 3.977211 s Performance:  53.994713 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 32x32 Grid size : 32x32 Shared memory size: 0 bytes Elapsed time: 3.974255 s Performance:  54.034873 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 48x1 Grid size : 22x1024 Shared memory size: 0 bytes Elapsed time: 10.131160 s Performance:  21.196819 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 48x2 Grid size : 22x512 Shared memory size: 0 bytes Elapsed time: 5.092295 s Performance:  42.171234 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 48x4 Grid size : 22x256 Shared memory size: 0 bytes Elapsed time: 3.473406 s Performance:  61.826451 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 48x8 Grid size : 22x128 Shared memory size: 0 bytes Elapsed time: 3.882101 s Performance:  55.317563 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 48x16 Grid size : 22x64 Shared memory size: 0 bytes Elapsed time: 4.463388 s Performance:  48.113309 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 48x21 Grid size : 22x49 Shared memory size: 0 bytes Elapsed time: 4.326660 s Performance:  49.633751 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 48x21 Grid size : 22x49 Shared memory size: 0 bytes Elapsed time: 4.317058 s Performance:  49.744146 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 64x1 Grid size : 16x1024 Shared memory size: 0 bytes Elapsed time: 7.360933 s Performance:  29.174069 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 64x2 Grid size : 16x512 Shared memory size: 0 bytes Elapsed time: 3.747075 s Performance:  57.310933 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 64x4 Grid size : 16x256 Shared memory size: 0 bytes Elapsed time: 3.180799 s Performance:  67.513969 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 64x8 Grid size : 16x128 Shared memory size: 0 bytes Elapsed time: 3.576659 s Performance:  60.041610 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 64x16 Grid size : 16x64 Shared memory size: 0 bytes Elapsed time: 4.022401 s Performance:  53.388104 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 64x16 Grid size : 16x64 Shared memory size: 0 bytes Elapsed time: 4.024718 s Performance:  53.357369 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 64x16 Grid size : 16x64 Shared memory size: 0 bytes Elapsed time: 4.020295 s Performance:  53.416071 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 80x1 Grid size : 13x1024 Shared memory size: 0 bytes Elapsed time: 6.001744 s Performance:  35.780994 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 80x2 Grid size : 13x512 Shared memory size: 0 bytes Elapsed time: 3.377020 s Performance:  63.591085 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 80x4 Grid size : 13x256 Shared memory size: 0 bytes Elapsed time: 3.533118 s Performance:  60.781543 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 80x8 Grid size : 13x128 Shared memory size: 0 bytes Elapsed time: 3.779116 s Performance:  56.825026 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 80x12 Grid size : 13x86 Shared memory size: 0 bytes Elapsed time: 4.322826 s Performance:  49.677772 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 80x12 Grid size : 13x86 Shared memory size: 0 bytes Elapsed time: 4.324425 s Performance:  49.659403 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 80x12 Grid size : 13x86 Shared memory size: 0 bytes Elapsed time: 4.322462 s Performance:  49.681956 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 96x1 Grid size : 11x1024 Shared memory size: 0 bytes Elapsed time: 5.076668 s Performance:  42.301046 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 96x2 Grid size : 11x512 Shared memory size: 0 bytes Elapsed time: 2.804194 s Performance:  76.581137 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 96x4 Grid size : 11x256 Shared memory size: 0 bytes Elapsed time: 3.168758 s Performance:  67.770516 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 96x8 Grid size : 11x128 Shared memory size: 0 bytes Elapsed time: 3.391506 s Performance:  63.319471 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 96x10 Grid size : 11x103 Shared memory size: 0 bytes Elapsed time: 4.205031 s Performance:  51.069389 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 96x10 Grid size : 11x103 Shared memory size: 0 bytes Elapsed time: 4.211838 s Performance:  50.986853 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 96x10 Grid size : 11x103 Shared memory size: 0 bytes Elapsed time: 4.210778 s Performance:  50.999688 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 112x1 Grid size : 10x1024 Shared memory size: 0 bytes Elapsed time: 4.657520 s Performance:  46.107878 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 112x2 Grid size : 10x512 Shared memory size: 0 bytes Elapsed time: 3.399338 s Performance:  63.173584 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 112x4 Grid size : 10x256 Shared memory size: 0 bytes Elapsed time: 3.616187 s Performance:  59.385304 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 112x8 Grid size : 10x128 Shared memory size: 0 bytes Elapsed time: 4.689504 s Performance:  45.793407 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 112x9 Grid size : 10x114 Shared memory size: 0 bytes Elapsed time: 4.354491 s Performance:  49.316525 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 112x9 Grid size : 10x114 Shared memory size: 0 bytes Elapsed time: 4.353450 s Performance:  49.328318 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 112x9 Grid size : 10x114 Shared memory size: 0 bytes Elapsed time: 4.351909 s Performance:  49.345785 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 128x1 Grid size : 8x1024 Shared memory size: 0 bytes Elapsed time: 3.748651 s Performance:  57.286839 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 128x2 Grid size : 8x512 Shared memory size: 0 bytes Elapsed time: 2.800127 s Performance:  76.692366 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 128x4 Grid size : 8x256 Shared memory size: 0 bytes Elapsed time: 3.178652 s Performance:  67.559571 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 128x8 Grid size : 8x128 Shared memory size: 0 bytes Elapsed time: 4.047135 s Performance:  53.061824 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 128x8 Grid size : 8x128 Shared memory size: 0 bytes Elapsed time: 4.042333 s Performance:  53.124858 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 128x8 Grid size : 8x128 Shared memory size: 0 bytes Elapsed time: 4.042005 s Performance:  53.129169 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 128x8 Grid size : 8x128 Shared memory size: 0 bytes Elapsed time: 4.042220 s Performance:  53.126343 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 144x1 Grid size : 8x1024 Shared memory size: 0 bytes Elapsed time: 3.806092 s Performance:  56.422274 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 144x2 Grid size : 8x512 Shared memory size: 0 bytes Elapsed time: 3.434446 s Performance:  62.527804 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 144x4 Grid size : 8x256 Shared memory size: 0 bytes Elapsed time: 3.806096 s Performance:  56.422214 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 144x7 Grid size : 8x147 Shared memory size: 0 bytes Elapsed time: 4.359940 s Performance:  49.254890 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 144x7 Grid size : 8x147 Shared memory size: 0 bytes Elapsed time: 4.355454 s Performance:  49.305621 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 144x7 Grid size : 8x147 Shared memory size: 0 bytes Elapsed time: 4.352013 s Performance:  49.344606 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 144x7 Grid size : 8x147 Shared memory size: 0 bytes Elapsed time: 4.356842 s Performance:  49.289913 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 160x1 Grid size : 7x1024 Shared memory size: 0 bytes Elapsed time: 3.270927 s Performance:  65.653671 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 160x2 Grid size : 7x512 Shared memory size: 0 bytes Elapsed time: 3.114787 s Performance:  68.944799 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 160x4 Grid size : 7x256 Shared memory size: 0 bytes Elapsed time: 3.568784 s Performance:  60.174100 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 160x6 Grid size : 7x171 Shared memory size: 0 bytes Elapsed time: 4.418968 s Performance:  48.596950 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 160x6 Grid size : 7x171 Shared memory size: 0 bytes Elapsed time: 4.419416 s Performance:  48.592023 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 160x6 Grid size : 7x171 Shared memory size: 0 bytes Elapsed time: 4.419449 s Performance:  48.591660 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 160x6 Grid size : 7x171 Shared memory size: 0 bytes Elapsed time: 4.420745 s Performance:  48.577415 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 176x1 Grid size : 6x1024 Shared memory size: 0 bytes Elapsed time: 3.659845 s Performance:  58.676902 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 176x2 Grid size : 6x512 Shared memory size: 0 bytes Elapsed time: 3.425225 s Performance:  62.696134 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 176x4 Grid size : 6x256 Shared memory size: 0 bytes Elapsed time: 3.570804 s Performance:  60.140059 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 176x5 Grid size : 6x205 Shared memory size: 0 bytes Elapsed time: 4.478044 s Performance:  47.955841 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 176x5 Grid size : 6x205 Shared memory size: 0 bytes Elapsed time: 4.477308 s Performance:  47.963724 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 176x5 Grid size : 6x205 Shared memory size: 0 bytes Elapsed time: 4.478472 s Performance:  47.951258 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 176x5 Grid size : 6x205 Shared memory size: 0 bytes Elapsed time: 4.477318 s Performance:  47.963617 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 192x1 Grid size : 6x1024 Shared memory size: 0 bytes Elapsed time: 3.163160 s Performance:  67.890453 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 192x2 Grid size : 6x512 Shared memory size: 0 bytes Elapsed time: 3.008161 s Performance:  71.388588 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 192x4 Grid size : 6x256 Shared memory size: 0 bytes Elapsed time: 3.427525 s Performance:  62.654062 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 192x5 Grid size : 6x205 Shared memory size: 0 bytes Elapsed time: 4.509951 s Performance:  47.616563 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 192x5 Grid size : 6x205 Shared memory size: 0 bytes Elapsed time: 4.514561 s Performance:  47.567940 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 192x5 Grid size : 6x205 Shared memory size: 0 bytes Elapsed time: 4.507411 s Performance:  47.643395 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 192x5 Grid size : 6x205 Shared memory size: 0 bytes Elapsed time: 4.509574 s Performance:  47.620543 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 208x1 Grid size : 5x1024 Shared memory size: 0 bytes Elapsed time: 3.555913 s Performance:  60.391906 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 208x2 Grid size : 5x512 Shared memory size: 0 bytes Elapsed time: 3.489214 s Performance:  61.546344 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 208x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.666886 s Performance:  46.015344 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 208x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.666632 s Performance:  46.017849 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 208x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.665642 s Performance:  46.027613 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 208x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.673464 s Performance:  45.950576 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 208x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.665676 s Performance:  46.027278 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 224x1 Grid size : 5x1024 Shared memory size: 0 bytes Elapsed time: 3.083955 s Performance:  69.634079 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 224x2 Grid size : 5x512 Shared memory size: 0 bytes Elapsed time: 3.104197 s Performance:  69.180005 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 224x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.651160 s Performance:  46.170926 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 224x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.643526 s Performance:  46.246832 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 224x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.650739 s Performance:  46.175106 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 224x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.643759 s Performance:  46.244511 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 224x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.643651 s Performance:  46.245587 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 240x1 Grid size : 5x1024 Shared memory size: 0 bytes Elapsed time: 3.674808 s Performance:  58.437982 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 240x2 Grid size : 5x512 Shared memory size: 0 bytes Elapsed time: 3.648011 s Performance:  58.867247 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 240x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.668978 s Performance:  45.994726 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 240x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.669059 s Performance:  45.993928 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 240x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.668663 s Performance:  45.997830 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 240x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.669343 s Performance:  45.991131 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 240x4 Grid size : 5x256 Shared memory size: 0 bytes Elapsed time: 4.670214 s Performance:  45.982553 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 256x1 Grid size : 4x1024 Shared memory size: 0 bytes Elapsed time: 2.931655 s Performance:  73.251581 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 256x2 Grid size : 4x512 Shared memory size: 0 bytes Elapsed time: 2.839008 s Performance:  75.642043 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 256x4 Grid size : 4x256 Shared memory size: 0 bytes Elapsed time: 3.828294 s Performance:  56.095056 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 256x4 Grid size : 4x256 Shared memory size: 0 bytes Elapsed time: 3.828312 s Performance:  56.094792 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 256x4 Grid size : 4x256 Shared memory size: 0 bytes Elapsed time: 3.832461 s Performance:  56.034064 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 256x4 Grid size : 4x256 Shared memory size: 0 bytes Elapsed time: 3.828157 s Performance:  56.097063 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 256x4 Grid size : 4x256 Shared memory size: 0 bytes Elapsed time: 3.828101 s Performance:  56.097884 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 272x1 Grid size : 4x1024 Shared memory size: 0 bytes Elapsed time: 3.586062 s Performance:  59.884175 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 272x2 Grid size : 4x512 Shared memory size: 0 bytes Elapsed time: 3.892468 s Performance:  55.170233 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 272x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.952370 s Performance:  43.362746 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 272x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.952980 s Performance:  43.357406 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 272x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.953086 s Performance:  43.356478 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 272x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.950781 s Performance:  43.376664 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 272x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.951708 s Performance:  43.368544 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 288x1 Grid size : 4x1024 Shared memory size: 0 bytes Elapsed time: 3.073712 s Performance:  69.866131 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 288x2 Grid size : 4x512 Shared memory size: 0 bytes Elapsed time: 3.473346 s Performance:  61.827519 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 288x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.923429 s Performance:  43.617642 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 288x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.923572 s Performance:  43.616375 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 288x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.923345 s Performance:  43.618386 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 288x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.923590 s Performance:  43.616216 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 288x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.923953 s Performance:  43.613001 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 304x1 Grid size : 4x1024 Shared memory size: 0 bytes Elapsed time: 3.572521 s Performance:  60.111155 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 304x2 Grid size : 4x512 Shared memory size: 0 bytes Elapsed time: 3.731690 s Performance:  57.547214 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 304x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.942773 s Performance:  43.446941 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 304x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.941716 s Performance:  43.456234 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 304x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.950750 s Performance:  43.376936 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 304x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.941210 s Performance:  43.460684 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 304x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.951018 s Performance:  43.374588 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 320x1 Grid size : 4x1024 Shared memory size: 0 bytes Elapsed time: 3.167203 s Performance:  67.803789 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 320x2 Grid size : 4x512 Shared memory size: 0 bytes Elapsed time: 3.413654 s Performance:  62.908650 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 320x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.929067 s Performance:  43.567751 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 320x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.928212 s Performance:  43.575310 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 320x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.930223 s Performance:  43.557536 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 320x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.928274 s Performance:  43.574762 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 320x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.927956 s Performance:  43.577574 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 336x1 Grid size : 4x1024 Shared memory size: 0 bytes Elapsed time: 3.517686 s Performance:  61.048190 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 336x2 Grid size : 4x512 Shared memory size: 0 bytes Elapsed time: 3.844029 s Performance:  55.865438 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 336x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.938727 s Performance:  43.482534 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 336x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.934998 s Performance:  43.515390 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 336x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.934915 s Performance:  43.516122 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 336x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.942128 s Performance:  43.452611 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 336x3 Grid size : 4x342 Shared memory size: 0 bytes Elapsed time: 4.934328 s Performance:  43.521299 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 352x1 Grid size : 3x1024 Shared memory size: 0 bytes Elapsed time: 2.846163 s Performance:  75.451886 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 352x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 2.873324 s Performance:  74.738653 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 352x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 2.868378 s Performance:  74.867526 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 352x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 2.869156 s Performance:  74.847225 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 352x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 2.871051 s Performance:  74.797823 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 352x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 2.878196 s Performance:  74.612141 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 352x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 2.870796 s Performance:  74.804467 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 368x1 Grid size : 3x1024 Shared memory size: 0 bytes Elapsed time: 3.515989 s Performance:  61.077655 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 368x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 3.461446 s Performance:  62.040074 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 368x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 3.461543 s Performance:  62.038335 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 368x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 3.461264 s Performance:  62.043336 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 368x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 3.461037 s Performance:  62.047405 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 368x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 3.460677 s Performance:  62.053860 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 368x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 3.463654 s Performance:  62.000525 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 384x1 Grid size : 3x1024 Shared memory size: 0 bytes Elapsed time: 3.125833 s Performance:  68.701164 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 384x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 3.051872 s Performance:  70.366111 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 384x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 3.055481 s Performance:  70.282998 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 384x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 3.057357 s Performance:  70.239872 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 384x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 3.050639 s Performance:  70.394552 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 384x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 3.054383 s Performance:  70.308264 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 384x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 3.052646 s Performance:  70.348270 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 400x1 Grid size : 3x1024 Shared memory size: 0 bytes Elapsed time: 3.560187 s Performance:  60.319406 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 400x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.550183 s Performance:  38.692123 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 400x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.540398 s Performance:  38.760458 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 400x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.542695 s Performance:  38.744395 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 400x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.542592 s Performance:  38.745115 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 400x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.539890 s Performance:  38.764012 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 400x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.539429 s Performance:  38.767238 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 416x1 Grid size : 3x1024 Shared memory size: 0 bytes Elapsed time: 3.248581 s Performance:  66.105283 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 416x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.525166 s Performance:  38.867315 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 416x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.525112 s Performance:  38.867694 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 416x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.537129 s Performance:  38.783341 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 416x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.525246 s Performance:  38.866752 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 416x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.525704 s Performance:  38.863530 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 416x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.525546 s Performance:  38.864642 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 432x1 Grid size : 3x1024 Shared memory size: 0 bytes Elapsed time: 3.667740 s Performance:  58.550596 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 432x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.551102 s Performance:  38.685718 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 432x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.549738 s Performance:  38.695226 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 432x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.538946 s Performance:  38.770619 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 432x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.542692 s Performance:  38.744416 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 432x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.538690 s Performance:  38.772411 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 432x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.539317 s Performance:  38.768022 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 448x1 Grid size : 3x1024 Shared memory size: 0 bytes Elapsed time: 3.327281 s Performance:  64.541698 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 448x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.522715 s Performance:  38.884564 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 448x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.531601 s Performance:  38.822100 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 448x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.523407 s Performance:  38.879692 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 448x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.532303 s Performance:  38.817173 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 448x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.523058 s Performance:  38.882149 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 448x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.522096 s Performance:  38.888923 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 464x1 Grid size : 3x1024 Shared memory size: 0 bytes Elapsed time: 3.676903 s Performance:  58.404686 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 464x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.535236 s Performance:  38.796605 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 464x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.536073 s Performance:  38.790739 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 464x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.534181 s Performance:  38.804001 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 464x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.545161 s Performance:  38.727165 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 464x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.533058 s Performance:  38.811877 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 464x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.533215 s Performance:  38.810775 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 480x1 Grid size : 3x1024 Shared memory size: 0 bytes Elapsed time: 3.480605 s Performance:  61.698574 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 480x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.520247 s Performance:  38.901949 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 480x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.520330 s Performance:  38.901364 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 480x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.520191 s Performance:  38.902343 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 480x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.519955 s Performance:  38.904006 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 480x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.530016 s Performance:  38.833227 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 480x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.520092 s Performance:  38.903041 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 496x1 Grid size : 3x1024 Shared memory size: 0 bytes Elapsed time: 4.039118 s Performance:  53.167143 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 496x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.548918 s Performance:  38.700944 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 496x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.560057 s Performance:  38.623411 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 496x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.548629 s Performance:  38.702960 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 496x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.549296 s Performance:  38.698308 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 496x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.552523 s Performance:  38.675817 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 496x2 Grid size : 3x512 Shared memory size: 0 bytes Elapsed time: 5.552517 s Performance:  38.675859 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 512x1 Grid size : 2x1024 Shared memory size: 0 bytes Elapsed time: 3.062801 s Performance:  70.115024 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 512x2 Grid size : 2x512 Shared memory size: 0 bytes Elapsed time: 3.750717 s Performance:  57.255283 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 512x2 Grid size : 2x512 Shared memory size: 0 bytes Elapsed time: 3.750709 s Performance:  57.255406 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 512x2 Grid size : 2x512 Shared memory size: 0 bytes Elapsed time: 3.750545 s Performance:  57.257909 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 512x2 Grid size : 2x512 Shared memory size: 0 bytes Elapsed time: 3.756534 s Performance:  57.166623 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 512x2 Grid size : 2x512 Shared memory size: 0 bytes Elapsed time: 3.750563 s Performance:  57.257634 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 512x2 Grid size : 2x512 Shared memory size: 0 bytes Elapsed time: 3.750872 s Performance:  57.252917 Gflop/s
+Benchmark ended on Thu Mar 14 04:35:23 EET 2019 in termi3

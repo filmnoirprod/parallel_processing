@@ -1,0 +1,22 @@
+GaussSeidelSOR X 2048 Y 2048 Px 1 Py 1 Iter 256 ComputationTime 8.411679 TotalTime 8.411774 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 4096 Y 4096 Px 1 Py 1 Iter 256 ComputationTime 33.653932 TotalTime 33.654093 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 6144 Y 6144 Px 1 Py 1 Iter 256 ComputationTime 75.759827 TotalTime 75.759997 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 2048 Y 2048 Px 2 Py 1 Iter 256 ComputationTime 4.213348 TotalTime 4.317818 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 4096 Y 4096 Px 2 Py 1 Iter 256 ComputationTime 16.863028 TotalTime 17.025946 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 6144 Y 6144 Px 2 Py 1 Iter 256 ComputationTime 37.852479 TotalTime 38.067967 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 2048 Y 2048 Px 2 Py 2 Iter 256 ComputationTime 2.108349 TotalTime 2.569287 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 4096 Y 4096 Px 2 Py 2 Iter 256 ComputationTime 8.436759 TotalTime 9.508208 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 6144 Y 6144 Px 2 Py 2 Iter 256 ComputationTime 18.962130 TotalTime 20.939073 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 2048 Y 2048 Px 4 Py 2 Iter 256 ComputationTime 1.050241 TotalTime 1.555483 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 4096 Y 4096 Px 4 Py 2 Iter 256 ComputationTime 4.222986 TotalTime 5.475925 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 6144 Y 6144 Px 4 Py 2 Iter 256 ComputationTime 9.486541 TotalTime 11.937386 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 2048 Y 2048 Px 4 Py 4 Iter 256 ComputationTime 0.500792 TotalTime 1.383810 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 4096 Y 4096 Px 4 Py 4 Iter 256 ComputationTime 2.876695 TotalTime 5.425751 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 6144 Y 6144 Px 4 Py 4 Iter 256 ComputationTime 6.649346 TotalTime 10.748570 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 2048 Y 2048 Px 8 Py 4 Iter 256 ComputationTime 0.188024 TotalTime 0.725907 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 4096 Y 4096 Px 8 Py 4 Iter 256 ComputationTime 2.604105 TotalTime 4.026716 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 6144 Y 6144 Px 8 Py 4 Iter 256 ComputationTime 6.248919 TotalTime 8.973286 ConvergeTime 0.000000 midpoint 0.000000 
+GaussSeidelSOR X 2048 Y 2048 Px 8 Py 8 Iter 256 ComputationTime 0.070337 TotalTime 0.900758 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 4096 Y 4096 Px 8 Py 8 Iter 256 ComputationTime 1.842928 TotalTime 4.363196 ConvergeTime 0.000000 midpoint 0.000000
+GaussSeidelSOR X 6144 Y 6144 Px 8 Py 8 Iter 256 ComputationTime 4.340315 TotalTime 8.496118 ConvergeTime 0.000000 midpoint 0.000000
+

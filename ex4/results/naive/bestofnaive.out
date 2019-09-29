@@ -1,0 +1,2 @@
+M: 1024 N: 1024 K: 1024 Block size: 128x2 Grid size : 8x512 Shared memory size: 0 bytes Elapsed time: 2.800127 s Performance:  76.692366 Gflop/s
+

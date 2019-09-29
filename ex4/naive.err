@@ -1,0 +1,27 @@
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z17dmm_gpu_coalescedPKfS0_Pfmmm' for 'sm_20'
+ptxas info    : Function properties for _Z17dmm_gpu_coalescedPKfS0_Pfmmm
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 18 registers, 80 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z14dmm_gpu_cublasPKfS0_Pfmmm' for 'sm_20'
+ptxas info    : Function properties for _Z14dmm_gpu_cublasPKfS0_Pfmmm
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 2 registers, 80 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z13dmm_gpu_naivePKfS0_Pfmmm' for 'sm_20'
+ptxas info    : Function properties for _Z13dmm_gpu_naivePKfS0_Pfmmm
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 16 registers, 80 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z13dmm_gpu_shmemPKfS0_Pfmmm' for 'sm_20'
+ptxas info    : Function properties for _Z13dmm_gpu_shmemPKfS0_Pfmmm
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 2 registers, 80 bytes cmem[0]
+dmm_main.cu(98): warning: variable "t" was set but never used
+
+dmm_main.cu(32): warning: function "check_result" was declared but never referenced
+
+dmm_main.cu(98): warning: variable "t" was set but never used
+
+dmm_main.cu(32): warning: function "check_result" was declared but never referenced
+
+ptxas info    : 0 bytes gmem
+ptxas info    : 0 bytes gmem

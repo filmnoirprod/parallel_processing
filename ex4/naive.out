@@ -1,0 +1,473 @@
+make -C common clean
+make[1]: Entering directory `/home/parallel/parlab26/ex4/common'
+/bin/rm -f  *.o *.s *~
+make[1]: Leaving directory `/home/parallel/parlab26/ex4/common'
+make -C cuda clean
+make[1]: Entering directory `/home/parallel/parlab26/ex4/cuda'
+/bin/rm -f dmm_main dmm.o dmm_gpu.o dmm_main.o gpu_util.o mat_util.o
+make[1]: Leaving directory `/home/parallel/parlab26/ex4/cuda'
+make -C common 
+make[1]: Entering directory `/home/parallel/parlab26/ex4/common'
+cc  -DNDEBUG -c -Wall -std=gnu99 -O3 -c -o alloc.o alloc.c
+cc  -DNDEBUG -c -Wall -std=gnu99 -O3 -c -o error.o error.c
+cc  -DNDEBUG -c -Wall -std=gnu99 -O3 -c -o timer.o timer.c
+make[1]: Leaving directory `/home/parallel/parlab26/ex4/common'
+make -C cuda 
+make[1]: Entering directory `/home/parallel/parlab26/ex4/cuda'
+cc -D__FLOAT_VALUES -DEPS=1e-2 -I../common -DNDEBUG -c -Wall -std=gnu99 -O3 -o dmm.o dmm.c
+/usr/local/cuda/bin/nvcc -D__FLOAT_VALUES -DEPS=1e-2 -I../common -DNDEBUG -I/usr/local/cuda/include -c -ccbin gcc -arch sm_20  -O3 --ptxas-options=-v -o dmm_gpu.o dmm_gpu.cu
+/usr/local/cuda/bin/nvcc -D__FLOAT_VALUES -DEPS=1e-2 -I../common -DNDEBUG -I/usr/local/cuda/include -c -ccbin gcc -arch sm_20  -O3 --ptxas-options=-v -o dmm_main.o dmm_main.cu
+/usr/local/cuda/bin/nvcc -D__FLOAT_VALUES -DEPS=1e-2 -I../common -DNDEBUG -I/usr/local/cuda/include -c -ccbin gcc -arch sm_20  -O3 --ptxas-options=-v -o gpu_util.o gpu_util.cu
+cc -D__FLOAT_VALUES -DEPS=1e-2 -I../common -DNDEBUG -c -Wall -std=gnu99 -O3 -o mat_util.o mat_util.c
+/usr/local/cuda/bin/nvcc -o dmm_main -L../common  ../common/alloc.o  ../common/error.o  ../common/timer.o dmm.o dmm_gpu.o dmm_main.o gpu_util.o mat_util.o -L/usr/local/cuda/lib64 -lcudart -lcublas -lm
+make[1]: Leaving directory `/home/parallel/parlab26/ex4/cuda'
+Benchmark started on Tue Mar 12 04:25:02 EET 2019 in termi5
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 16x1
+Grid size : 64x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 29.190887 s
+Performance:  7.356692 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 32x1
+Grid size : 32x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 14.595212 s
+Performance:  14.713617 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 48x1
+Grid size : 22x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 10.131433 s
+Performance:  21.196248 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 64x1
+Grid size : 16x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 7.368995 s
+Performance:  29.142151 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 80x1
+Grid size : 13x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 5.988481 s
+Performance:  35.860240 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 96x1
+Grid size : 11x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 5.075589 s
+Performance:  42.310038 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 112x1
+Grid size : 10x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 4.666972 s
+Performance:  46.014496 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 128x1
+Grid size : 8x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.746637 s
+Performance:  57.317633 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 144x1
+Grid size : 8x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.771619 s
+Performance:  56.937979 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 160x1
+Grid size : 7x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.267647 s
+Performance:  65.719573 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 176x1
+Grid size : 6x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.686658 s
+Performance:  58.250145 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 192x1
+Grid size : 6x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.160204 s
+Performance:  67.953956 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 208x1
+Grid size : 5x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.538889 s
+Performance:  60.682425 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 224x1
+Grid size : 5x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.076113 s
+Performance:  69.811598 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 240x1
+Grid size : 5x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.639799 s
+Performance:  59.000061 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 256x1
+Grid size : 4x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 2.929385 s
+Performance:  73.308345 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 272x1
+Grid size : 4x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.598796 s
+Performance:  59.672281 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 288x1
+Grid size : 4x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.046079 s
+Performance:  70.499933 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 304x1
+Grid size : 4x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.562879 s
+Performance:  60.273830 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 320x1
+Grid size : 4x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.165551 s
+Performance:  67.839174 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 336x1
+Grid size : 4x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.514660 s
+Performance:  61.100751 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 352x1
+Grid size : 3x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 2.845284 s
+Performance:  75.475195 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 368x1
+Grid size : 3x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.522839 s
+Performance:  60.958893 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 384x1
+Grid size : 3x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.134835 s
+Performance:  68.503881 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 400x1
+Grid size : 3x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.567156 s
+Performance:  60.201562 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 416x1
+Grid size : 3x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.241225 s
+Performance:  66.255309 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 432x1
+Grid size : 3x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.648509 s
+Performance:  58.859212 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 448x1
+Grid size : 3x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.329082 s
+Performance:  64.506781 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 464x1
+Grid size : 3x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.681664 s
+Performance:  58.329159 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 480x1
+Grid size : 3x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.475725 s
+Performance:  61.785200 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 496x1
+Grid size : 3x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 4.028383 s
+Performance:  53.308825 Gflop/s
+>>>> End of record <<<<
+Dimension M: 1024
+Adjusted dimension M: 1024
+Dimension N: 1024
+Adjusted dimension N: 1024
+Dimension K: 1024
+Adjusted dimension K: 1024
+>>>> Begin of record <<<<
+Block size: 512x1
+Grid size : 2x1024
+Shared memory size: 0 bytes
+GPU kernel version: naive
+Elapsed time: 3.063112 s
+Performance:  70.107905 Gflop/s
+>>>> End of record <<<<
+Benchmark ended on Tue Mar 12 04:28:27 EET 2019 in termi5

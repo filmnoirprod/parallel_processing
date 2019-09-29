@@ -1,0 +1,6 @@
+Benchmark started on Thu Mar 14 04:47:25 EET 2019 in termi5
+M: 1024 N: 1024 K: 1024 Block size: 4x4 Grid size : 256x256 Shared memory size: 128 bytes Elapsed time: 28.212599 s Performance:  7.611789 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 8x8 Grid size : 128x128 Shared memory size: 512 bytes Elapsed time: 4.838772 s Performance:  44.380757 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 16x16 Grid size : 64x64 Shared memory size: 2048 bytes Elapsed time: 3.090678 s Performance:  69.482607 Gflop/s
+M: 1024 N: 1024 K: 1024 Block size: 32x32 Grid size : 32x32 Shared memory size: 8192 bytes Elapsed time: 2.780985 s Performance:  77.220253 Gflop/s
+Benchmark ended on Thu Mar 14 04:48:09 EET 2019 in termi5
