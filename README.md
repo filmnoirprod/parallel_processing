@@ -8,7 +8,7 @@ At this exercise we parallelized the Game of Life using OpenMP as part of the in
 ## Exercise 1b (/master/ex1b) -- Paralellizing algorithms using OpenMP , TBB and AVX intrinsics(vectorization).
 At this exercise we parallelized different variations of the Floyd Warshall algorithm.
 
-## Exercise 2 (/master/ex2) -- Paralellizing algorithms MPI on distributed systems.
+## Exercise 2 (/master/ex2) -- Paralellizing algorithms using MPI on distributed systems.
 At this exercise we parallelized Jacobi , Gauss-Seidel and Red-Black SOR algorithms using the Message Passing Interface.
 
 ## Exercise 3 (/master/ex3) -- Concurrent data types
